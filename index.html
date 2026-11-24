@@ -1,323 +1,387 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Smart Olive Machines — Morocco | Prototype</title>
-  <style>
-    :root {
-      --bg: #f7f6f1;
-      --surface: #ffffff;
-      --ink: #1b241c;
-      --muted: #556256;
-      --olive: #3f5e2b;
-      --olive-dark: #2c431d;
-      --accent: #b87b28;
-      --border: #dfe3da;
-      --radius: 14px;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.6;
-    }
-    header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-    .nav {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 1rem 1.5rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    .brand { font-weight: 700; color: var(--olive-dark); font-size: 1.1rem; }
-    .nav-links { display: flex; gap: 1.25rem; flex-wrap: wrap; }
-    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.95rem; font-weight: 500; }
-    .nav-links a:hover { color: var(--olive); }
-    .container { max-width: 1120px; margin: 0 auto; padding: 2.5rem 1.5rem; }
-    .hero {
-      background: linear-gradient(135deg, #243818 0%, #3f5e2b 100%);
-      color: #fff;
-      border-radius: 20px;
-      padding: 3rem 2rem;
-      display: grid;
-      gap: 1.5rem;
-    }
-    .badge {
-      display: inline-block;
-      background: rgba(255,255,255,0.16);
-      padding: 0.3rem 0.75rem;
-      border-radius: 999px;
-      font-size: 0.85rem;
-      width: fit-content;
-    }
-    h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.2; max-width: 24ch; }
-    .hero p { max-width: 62ch; color: #eef3ea; }
-    .cta-row { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-top: 0.5rem; }
-    .btn {
-      display: inline-block;
-      padding: 0.8rem 1.35rem;
-      border-radius: 10px;
-      font-weight: 600;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      font-size: 0.95rem;
-    }
-    .btn-primary { background: var(--accent); color: #fff; }
-    .btn-secondary { background: rgba(255,255,255,0.14); color: #fff; border: 1px solid rgba(255,255,255,0.35); }
-    section { margin-top: 3.5rem; }
-    h2 { font-size: 1.65rem; margin-bottom: 0.6rem; color: var(--olive-dark); }
-    .section-sub { color: var(--muted); margin-bottom: 1.5rem; max-width: 65ch; }
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-    }
-    .card h3 { margin-bottom: 0.5rem; font-size: 1.15rem; }
-    .card p { color: var(--muted); font-size: 0.95rem; }
-    .tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
-    .tab-btn {
-      padding: 0.55rem 1rem;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--ink);
-      cursor: pointer;
-      font-weight: 600;
-    }
-    .tab-btn.active { background: var(--olive); color: #fff; border-color: var(--olive); }
-    .calc-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.75rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-    }
-    label { display: block; font-weight: 600; margin-bottom: 0.4rem; font-size: 0.92rem; }
-    input[type="range"], input[type="text"] {
-      width: 100%;
-      margin-bottom: 1rem;
-    }
-    input[type="text"] {
-      padding: 0.7rem 0.85rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-size: 0.95rem;
-    }
-    .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .kpi {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1rem;
-    }
-    .kpi .val { font-size: 1.5rem; font-weight: 700; color: var(--olive); }
-    .kpi .lbl { font-size: 0.85rem; color: var(--muted); }
-    .note { font-size: 0.82rem; color: var(--muted); margin-top: 0.75rem; }
-    .status-msg { margin-top: 0.75rem; font-weight: 600; color: var(--olive-dark); }
-    footer {
-      margin-top: 4rem;
-      border-top: 1px solid var(--border);
-      padding: 2rem 1.5rem;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prof. Pin Luarn | 2026 AI Personal Site</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <!-- chatbot temporarily disabled; uncomment to enable and confirm the filename is chatbot.js -->
+    <script src="chatbot.js"></script>
 </head>
 <body>
-  <header>
-    <nav class="nav">
-      <div class="brand">Smart Olive Machines · Morocco</div>
-      <div class="nav-links">
-        <a href="#challenges">Challenges</a>
-        <a href="#solution">Technology</a>
-        <a href="#simulator">Simulator</a>
-        <a href="#contact">Request Demo</a>
-      </div>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">2026 AI</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://drluarn.github.io/student.html" target="_blank" rel="noopener">Student Portfolio</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </nav>
-  </header>
 
-  <main class="container">
-    <section class="hero" style="margin-top:0;">
-      <span class="badge">Smart Agri-Tech for Morocco's Olive Value Chain</span>
-      <h1>Faster, Smarter Olive Harvesting and Handling—Gentle on Every Fruit</h1>
-      <p>
-        Built to overcome seasonal labor shortages, heat stress, and quality loss in Morocco,
-        our Smart Olive Machines combine adaptive sensors with intuitive field telemetry.
-      </p>
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#contact">Request a Field Demo</a>
-        <a class="btn btn-secondary" href="#simulator">Estimate Operational Impact</a>
-      </div>
-    </section>
-
-    <section id="challenges">
-      <h2>Why Upgrade Field Operations Now</h2>
-      <p class="section-sub">Moroccan olive producers must balance tight harvest windows, rising labor costs, and fruit integrity.</p>
-      <div class="grid-3">
-        <div class="card">
-          <h3>Critical Seasonal Labor</h3>
-          <p>Narrow harvest windows and scarce skilled crews slow down peak-season operations across major olive regions.</p>
-        </div>
-        <div class="card">
-          <h3>Heat &amp; Dust Resilience</h3>
-          <p>Demanding climate conditions require ruggedized cooling, dust filtration, and dependable uptime.</p>
-        </div>
-        <div class="card">
-          <h3>Fruit &amp; Canopy Integrity</h3>
-          <p>Uncalibrated mechanical force bruises olives and damages branches, cutting oil quality and next-season yield.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="solution">
-      <h2>How Smart Olive Machines Work</h2>
-      <p class="section-sub">Select an operational profile to preview key capabilities tailored to your workflow.</p>
-      <div class="tabs" role="tablist">
-        <button class="tab-btn active" data-profile="farm">Commercial Estates</button>
-        <button class="tab-btn" data-profile="coop">Agricultural Cooperatives</button>
-        <button class="tab-btn" data-profile="mill">Olive Mills</button>
-      </div>
-      <div class="grid-3" id="profile-cards">
-        <div class="card">
-          <h3>Adaptive Canopy Sensors</h3>
-          <p>Automatically adjusts vibration intensity and rhythm based on canopy resistance and fruit load.</p>
-        </div>
-        <div class="card">
-          <h3>Real-Time Field Telemetry</h3>
-          <p>Live tracking of hectares covered, fuel efficiency, and preventive maintenance alerts.</p>
-        </div>
-        <div class="card">
-          <h3>Local Support &amp; Continuity</h3>
-          <p>Rapid operator onboarding and stocked spare parts to keep harvest campaigns running without interruption.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="simulator">
-      <h2>Indicative Efficiency Simulator</h2>
-      <p class="section-sub">Adjust orchard area and machine fleet size for a preliminary estimate (to be validated during an on-site assessment).</p>
-      <div class="calc-box">
-        <div>
-          <label for="hectares">Orchard Area / Equivalent Volume: <span id="ha-val">45</span> ha</label>
-          <input type="range" id="hectares" min="10" max="300" step="5" value="45" />
-
-          <label for="units">Number of Smart Olive Machines: <span id="units-val">2</span> units</label>
-          <input type="range" id="units" min="1" max="15" step="1" value="2" />
-        </div>
-        <div>
-          <div class="kpi-grid">
-            <div class="kpi">
-              <div class="val" id="hours-saved">360 h</div>
-              <div class="lbl">Estimated operational hours saved / season</div>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content fade-in">
+                    <h1 id="name"></h1>
+                    <div class="titles-container">
+                        <p class="subtitle title-line" id="title1"></p>
+                        <p class="subtitle title-line" id="title2"></p>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Expertise:</strong>
+                        <span id="expertise"></span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Education:</strong>
+                        <span id="education"></span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Email:</strong>
+                        <a href="" class="text-white" id="email"></a>
+                    </div>
+                    <div class="mb-3">
+                        <strong>LinkedIn:</strong>
+                        <a href="" target="_blank" class="text-white" id="linkedin">
+                            <i class="fab fa-linkedin me-1"></i>
+                            <span id="linkedin-text"></span>
+                            <i class="fas fa-external-link-alt ms-1"></i>
+                        </a>
+                    </div>
+                    <div class="mb-4 student-links">
+                        <strong>2026 Pforzheim Student Project Links:</strong>
+                        <div class="student-link-item">
+                            <a href="https://drluarn.github.io/student.html" target="_blank" rel="noopener">
+                                <span>• Student Personal Website Portfolio</span>
+                                <i class="fas fa-external-link-alt ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center fade-in">
+                    <img src="mypic.jpg" alt="profile photo" class="profile-img">
+                </div>
             </div>
-            <div class="kpi">
-              <div class="val" id="loss-cut">-18%</div>
-              <div class="lbl">Estimated reduction in fruit bruising &amp; loss</div>
-            </div>
-          </div>
-          <p class="note">Illustrative estimate based on baseline parameters refined during technical site visits in Morocco.</p>
         </div>
-      </div>
     </section>
 
-    <section id="contact">
-      <h2>Request a Field Demo or Consultation</h2>
-      <p class="section-sub">Leave your details to schedule a technical evaluation tailored to your operation in Morocco.</p>
-      <form class="card" id="demo-form" style="max-width:560px;">
-        <label for="name">Full Name / Estate or Cooperative</label>
-        <input type="text" id="name" placeholder="e.g., Youssef El Mansouri — Domaine Atlas" required />
-
-        <label for="contact-info">Email or Phone Number</label>
-        <input type="text" id="contact-info" placeholder="contact@farm.ma or +212 6XX XXX XXX" required />
-
-        <button type="submit" class="btn btn-primary">Submit Request</button>
-        <div class="status-msg" id="form-status" aria-live="polite"></div>
-      </form>
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card fade-in">
+                        <div class="card-body p-4">
+                            <p class="lead text-center" id="about-text">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-  </main>
 
-  <footer>
-    Venture Team Prototype · Smart Olive Machines (Morocco Market)
-  </footer>
+    <!-- Projects Section -->
+    <section id="projects" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">My Projects</h2>
 
-  <script>
-    const haInput = document.getElementById("hectares");
-    const unitsInput = document.getElementById("units");
-    const haVal = document.getElementById("ha-val");
-    const unitsVal = document.getElementById("units-val");
-    const hoursSavedEl = document.getElementById("hours-saved");
-    const lossCutEl = document.getElementById("loss-cut");
+            <!-- Projects are rendered dynamically by JS -->
+            <div class="project-grid fade-in" id="projects-grid"></div>
+        </div>
+    </section>
 
-    function updateSim() {
-      const ha = Number(haInput.value);
-      const units = Number(unitsInput.value);
-      haVal.textContent = ha;
-      unitsVal.textContent = units;
+    <!-- Student Portfolio Section -->
+    <section id="portfolio" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">Student Portfolio</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="portfolio-cta fade-in">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h4 style="color: var(--navy-deep); font-weight: 700;">2026 Pforzheim Student Personal Website Portfolio</h4>
+                        <p class="text-muted mt-2">Click the button below to browse this semester's student project websites</p>
+                        <a href="https://drluarn.github.io/student.html" class="btn-elegant" target="_blank" rel="noopener">
+                            <i class="fas fa-arrow-right"></i> <span>View Student Portfolio</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      const hours = Math.round(ha * 4 + units * 90);
-      const lossCut = Math.min(28, 12 + units * 2);
-      hoursSavedEl.textContent = hours + " h";
-      lossCutEl.textContent = "-" + lossCut + "%";
-    }
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Contact</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-info fade-in">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h5>Email</h5>
+                                <a id="contact-email1" href=""></a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h5>Phone</h5>
+                                <p id="contact-phone"></p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h5>Location</h5>
+                                <p id="contact-location"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    haInput.addEventListener("input", updateSim);
-    unitsInput.addEventListener("input", updateSim);
-    updateSim();
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Dr. Pin Luarn. All rights reserved.</p>
+        </div>
+    </footer>
 
-    const profileData = {
-      farm: [
-        ["Adaptive Canopy Sensors", "Automatically adjusts vibration intensity and rhythm based on canopy resistance and fruit load."],
-        ["Real-Time Field Telemetry", "Live tracking of hectares covered, fuel efficiency, and preventive maintenance alerts."],
-        ["Local Support & Continuity", "Rapid operator onboarding and stocked spare parts to keep harvest campaigns running without interruption."]
-      ],
-      coop: [
-        ["Multi-Grove Presets", "Quick-switch profiles for moving between member orchards without lengthy recalibration."],
-        ["Member Batch Traceability", "Structured logging of harvested volumes and machine hours per cooperative member."],
-        ["Synchronized Logistics", "Aligns field harvesting pace with transport and mill intake capacity."]
-      ],
-      mill: [
-        ["Cleaner Drupe Intake", "Lower bruising and leaf/twig debris to preserve low acidity and extra-virgin quality."],
-        ["Delivery Scheduling", "Visibility into incoming harvest volumes to balance milling shifts."],
-        ["Steadier Line Throughput", "Fewer stoppages caused by irregular loads or damaged fruit batches."]
-      ]
-    };
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
-    const cardsContainer = document.getElementById("profile-cards");
-    document.querySelectorAll(".tab-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-        const items = profileData[btn.dataset.profile] || profileData.farm;
-        cardsContainer.innerHTML = items
-          .map(([title, desc]) => `<div class="card"><h3>${title}</h3><p>${desc}</p></div>`)
-          .join("");
-      });
-    });
+    <script>
+        const totalUnits = 6;
 
-    document.getElementById("demo-form").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const name = document.getElementById("name").value.trim();
-      document.getElementById("form-status").textContent =
-        `Demo request recorded for ${name || "your contact"} (prototype simulation: no external data sent).`;
-      e.target.reset();
-    });
-  </script>
+        // Fallback project descriptions (used if projects.txt cannot be fetched, e.g. opened via file://)
+        const defaultProjects = [
+            {id: 1, description: 'Introduction to AI, setting up github.io'},
+            {id: 2, description: 'MediaPipe Solutions'},
+            {id: 3, description: 'Teachable Machine, YOLO, Neural Style Transfer, Simple Chat App, Island Builder'},
+            {id: 4, description: 'Ollama, Gemini'},
+            {id: 5, description: 'N8N, OpenAI Agent, Claude Agent, OpenClaw, Hermes Agent'},
+            {id: 6, description: 'Meta Muse, Manus CUE!, Hark Pro, OpenAI Dots, Grok Bot, Claude Duet'}
+        ];
+
+        let projects = defaultProjects;
+
+        // Always read projects.txt from the instructor's own site so every student
+        // fork (even hosted on a different github.io domain) shows the same, current
+        // unit list rather than whatever projects.txt happens to ship in their repo.
+        const PROJECTS_TXT_URL = 'https://drluarn.github.io/projects.txt';
+
+        async function loadProjectsTxt() {
+            try {
+                const res = await fetch(PROJECTS_TXT_URL, { cache: 'no-store' });
+                if (!res.ok) throw new Error('projects.txt not found');
+                const text = await res.text();
+                const parsed = parseProfileTxt(text);
+                const loaded = [];
+                for (let i = 1; i <= totalUnits; i++) {
+                    const description = parsed[`unit${i}`];
+                    if (description) loaded.push({id: i, description});
+                }
+                // Only use the loaded list if every unit was found; otherwise keep defaults
+                projects = (loaded.length === totalUnits) ? loaded : defaultProjects;
+            } catch (err) {
+                console.warn('Could not load projects.txt, using built-in defaults.', err);
+                projects = defaultProjects;
+            }
+        }
+
+        // Fallback profile (used if profile.txt cannot be fetched, e.g. opened via file://)
+        const defaultProfile = {
+            name: 'Prof. Pin Luarn',
+            title1: 'Top 2% Scientist Worldwide (2020-2026)',
+            title2: '2024 National Teaching Award Laureate',
+            expertise: 'Internet Marketing, AI Applications, Agentic AI',
+            education: 'Ph.D. in Industrial Engineering, University of Wisconsin-Madison, USA',
+            email: 'luarn@mail.ntust.edu.tw',
+            linkedin: 'https://pse.is/8nn88y',
+            about1: 'Prof. Luarn earned his B.S. in Industrial Engineering from Tunghai University,',
+            about2: 'and his M.S. and Ph.D. in Industrial Engineering from the University of Wisconsin-Madison.',
+            about3: "Named among the world's top 2% scientists by Stanford University & Elsevier for seven consecutive years (2020-2026).",
+            about4: 'Recipient of the 2024 Presidential National Teaching Award, Taiwan',
+            phone: '+886-2-2737-6754',
+            location: 'T2-409, National Taiwan University of Science and Technology, No. 43, Sec. 4, Keelung Rd., Taipei, Taiwan'
+        };
+
+        let profileData = defaultProfile;
+
+        // Parse a simple "key=value" text file, ignoring blank lines and comments
+        function parseProfileTxt(text) {
+            const data = {};
+            text.split(/\r?\n/).forEach(line => {
+                const trimmed = line.trim();
+                if (!trimmed || trimmed.startsWith('#')) return;
+                const idx = trimmed.indexOf('=');
+                if (idx === -1) return;
+                const key = trimmed.slice(0, idx).trim();
+                const value = trimmed.slice(idx + 1).trim();
+                data[key] = value;
+            });
+            return data;
+        }
+
+        async function loadProfileTxt() {
+            try {
+                const res = await fetch('profile.txt', { cache: 'no-store' });
+                if (!res.ok) throw new Error('profile.txt not found');
+                const text = await res.text();
+                const parsed = parseProfileTxt(text);
+                // Merge over defaults so missing keys still fall back gracefully
+                profileData = Object.assign({}, defaultProfile, parsed);
+                // The about1-4 lines are optional per-student content with no sensible
+                // instructor fallback: if a student deletes one of these keys entirely
+                // (rather than leaving it blank), show nothing instead of leaking
+                // Prof. Luarn's own bio text into the student's About Me section.
+                ['about1', 'about2', 'about3', 'about4'].forEach(key => {
+                    if (!(key in parsed)) profileData[key] = '';
+                });
+            } catch (err) {
+                console.warn('Could not load profile.txt, using built-in defaults.', err);
+                profileData = defaultProfile;
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', async function() {
+            await Promise.all([loadProfileTxt(), loadProjectsTxt()]);
+            applyProfileData();
+            renderProjects();
+            initScrollAnimations();
+            initSmoothScrolling();
+        });
+
+        // Fill in profile fields (name, titles, about text, contact info)
+        function applyProfileData() {
+            const p = profileData;
+            document.getElementById('name').textContent = p.name;
+            document.getElementById('title1').textContent = p.title1;
+            document.getElementById('title2').textContent = p.title2;
+            document.getElementById('expertise').textContent = p.expertise;
+            document.getElementById('education').textContent = p.education;
+
+            document.getElementById('email').textContent = p.email;
+            document.getElementById('email').href = `mailto:${p.email}`;
+            // Students often paste a LinkedIn URL without the https:// prefix, which
+            // browsers then treat as a relative link instead of an external one.
+            const linkedinUrl = p.linkedin && !/^https?:\/\//i.test(p.linkedin)
+                ? `https://${p.linkedin}`
+                : p.linkedin;
+            document.getElementById('linkedin').href = linkedinUrl;
+            document.getElementById('linkedin-text').textContent = p.linkedin;
+
+            const aboutParts = [p.about1, p.about2, p.about3, p.about4]
+                .filter(text => text && text.trim());
+            document.getElementById('about-text').innerHTML = aboutParts.join(' ');
+
+            document.getElementById('contact-email1').textContent = p.email;
+            document.getElementById('contact-email1').href = `mailto:${p.email}`;
+            document.getElementById('contact-phone').textContent = p.phone;
+            document.getElementById('contact-location').textContent = p.location;
+        }
+
+        // Render the project grid
+        function renderProjects() {
+            const grid = document.getElementById('projects-grid');
+
+            grid.innerHTML = projects.map(project => {
+                return `
+                    <div class="project-card" onclick="openProject(${project.id})">
+                        <div class="project-number">${project.id}</div>
+                        <h5>Unit #${project.id}</h5>
+                        <p class="text-muted">${project.description}</p>
+                        <small class="text-primary">Click for details</small>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Open project details
+        function openProject(id) {
+            window.open(`unit.html?unit=${id}`, '_blank');
+        }
+
+        // Scroll-triggered fade-in animations
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Smooth scrolling for in-page navigation links
+        function initSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const headerOffset = 70;
+                        const elementPosition = target.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255,255,255,0.98)';
+            } else {
+                navbar.style.background = 'rgba(255,255,255,0.95)';
+            }
+        });
+    </script>
 </body>
 </html>
